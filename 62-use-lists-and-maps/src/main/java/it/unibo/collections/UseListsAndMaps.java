@@ -25,7 +25,7 @@ public final class UseListsAndMaps {
          * 1) Create a new ArrayList<Integer>, and populate it with the numbers
          * from 1000 (included) to 2000 (excluded).
          */
-        final Collection<Integer> al = new ArrayList<>();
+        final ArrayList<Integer> al = new ArrayList<>();
         for (int i = 1000; i < 2000; i++){
             al.addAll(Arrays.asList(i));
         }
@@ -34,17 +34,24 @@ public final class UseListsAndMaps {
          * without using any looping construct (for, while), populate it with
          * the same contents of the list of point 1.
          */
-        final Collection<Integer> ll = new LinkedList<>(al);
+        final LinkedList<Integer> ll = new LinkedList<>(al);
 
         /*
          * 3) Using "set" and "get" and "size" methods, swap the first and last
          * element of the first list. You can not use any "magic number".
          * (Suggestion: use a temporary variable)
          */
-        
+        int tempFirst;
+        tempFirst = al.get(0);
+        al.set(0, al.get(al.size() - 1));
+        al.set(al.size() - 1, tempFirst);
+
         /*
          * 4) Using a single for-each, print the contents of the arraylist.
          */
+        for (int i : al){
+            System.out.println(i);
+        }
         /*
          * 5) Measure the performance of inserting new elements in the head of
          * the collection: measure the time required to add 100.000 elements as
