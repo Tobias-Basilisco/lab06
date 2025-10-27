@@ -6,12 +6,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Example class using {@link List} and {@link Map}.
  *
  */
 public final class UseListsAndMaps {
+
+    private static final int ELEMS = 100_000;
+    private static final int READ_ELEMS = 1000;
+
 
     private UseListsAndMaps() {
     }
@@ -60,11 +65,105 @@ public final class UseListsAndMaps {
          * TestPerformance.java.
          */
         /*
+         * Prepare a variable for measuring time
+         */
+        long time = System.nanoTime();
+        /*
+         * Run the benchmark
+         */
+        for (int i = 1; i <= ELEMS; i++) {
+            al.set(0, i);
+        }
+        /*
+         * Compute the time and print result
+         */
+        time = System.nanoTime() - time;
+        var millis = TimeUnit.NANOSECONDS.toMillis(time);
+        System.out.println(// NOPMD
+            "Inserting "
+                + ELEMS
+                + " ints in an ArrayList took "
+                + time
+                + "ns ("
+                + millis
+                + "ms)"
+        );
+
+        time = System.nanoTime();
+        /*
+         * Run the benchmark
+         */
+        for (int i = 1; i <= ELEMS; i++) {
+            ll.set(0, i);
+        }
+        /*
+         * Compute the time and print result
+         */
+        time = System.nanoTime() - time;
+        millis = TimeUnit.NANOSECONDS.toMillis(time);
+        System.out.println(// NOPMD
+            "Inserting "
+                + ELEMS
+                + " ints in a LinkedList took "
+                + time
+                + "ns ("
+                + millis
+                + "ms)"
+        );
+
+
+        /*
          * 6) Measure the performance of reading 1000 times an element whose
          * position is in the middle of the collection for both ArrayList and
          * LinkedList, using the collections of point 5. In order to measure
          * times, use as example TestPerformance.java.
          */
+        time = System.nanoTime();
+        /*
+         * Run the benchmark
+         */
+        int tempInt;
+        for (int i = 1; i <= ELEMS; i++) {
+            tempInt = al.get(al.size() / 2);
+        }
+        /*
+         * Compute the time and print result
+         */
+        time = System.nanoTime() - time;
+        millis = TimeUnit.NANOSECONDS.toMillis(time);
+        System.out.println(// NOPMD
+            "Reading "
+                + READ_ELEMS
+                + " ints from an ArrayList took "
+                + time
+                + "ns ("
+                + millis
+                + "ms)"
+        );
+
+        time = System.nanoTime();
+        /*
+         * Run the benchmark
+         */
+        for (int i = 1; i <= ELEMS; i++) {
+            tempInt = ll.get(ll.size() / 2);
+        }
+        /*
+         * Compute the time and print result
+         */
+        time = System.nanoTime() - time;
+        millis = TimeUnit.NANOSECONDS.toMillis(time);
+        System.out.println(// NOPMD
+            "Reading "
+                + READ_ELEMS
+                + " ints from a LinkedList took "
+                + time
+                + "ns ("
+                + millis
+                + "ms)"
+        );
+
+        
         /*
          * 7) Build a new Map that associates to each continent's name its
          * population:
