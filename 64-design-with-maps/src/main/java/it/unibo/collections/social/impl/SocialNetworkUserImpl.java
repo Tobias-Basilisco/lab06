@@ -99,4 +99,18 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
     public List<U> getFollowedUsers() {
         return null;
     }
+
+    private boolean isUserAlreadyFollowed(U user){
+        if (groupedFollowedFriends.isEmpty()){
+            return false;
+        }
+        for(final Set<U> groupSet : groupedFollowedFriends.values()){
+            for (final U friend : groupSet){
+                if (user.equals(friend)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
