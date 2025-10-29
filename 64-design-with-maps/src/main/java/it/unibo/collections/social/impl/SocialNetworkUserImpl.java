@@ -113,4 +113,16 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
         }
         return false;
     }
+
+    private boolean isExistingGroup(final String groupName){
+        if (groupedFollowedFriends.isEmpty()){
+            return false;
+        }
+        for (final String group : groupedFollowedFriends.keySet()){
+            if (groupName.equals(group)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
