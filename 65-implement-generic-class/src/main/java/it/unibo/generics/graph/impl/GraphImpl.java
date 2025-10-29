@@ -38,13 +38,27 @@ public class GraphImpl<N> implements Graph<N>{
      */
     @Override
     public void addEdge(N source, N target){
+        if (source == null || 
+            target == null ||
+            !map.containsKey(source) ||
+            !map.containsKey(target)){
+            return;
+        }
+        map.get(source).add(target);
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<N> nodeSet(){
-        return null;
+        final Set<N> set = new HashSet<>();
+        if (map.isEmpty()) {
+            return set;
+        }
+        set.addAll(map.keySet());
+
+        return set;
     }
 
     /**
