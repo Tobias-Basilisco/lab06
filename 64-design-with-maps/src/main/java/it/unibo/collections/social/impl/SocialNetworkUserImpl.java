@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -111,6 +112,10 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
 
     @Override
     public List<U> getFollowedUsers() {
+        final List<U> userList = new LinkedList<>();
+        for (final Set<U> group : groupedFollowedFriends.values()){
+            userList.addAll(group);
+        }
         return null;
     }
 
