@@ -81,8 +81,18 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      * Implements the methods below
      */
     @Override
-    public boolean addFollowedUser(final String circle, final U user) {
-        return false;
+    public boolean addFollowedUser(final String circle, final U user) {        
+        if (isUserAlreadyFollowed(user)){
+            return false;
+        }
+        Set<U> groupSet = groupedFollowedFriends.get(circle);
+        if (groupSet == null){
+            groupSet = new HashSet<>();
+            groupedFollowedFriends.put(circle, groupSet);
+        }
+        groupSet.add(user);
+
+        return true;
     }
 
     /**
@@ -114,15 +124,5 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
         return false;
     }
 
-    private boolean isExistingGroup(final String groupName){
-        if (groupedFollowedFriends.isEmpty()){
-            return false;
-        }
-        for (final String group : groupedFollowedFriends.keySet()){
-            if (groupName.equals(group)){
-                return true;
-            }
-        }
-        return false;
-    }
+    
 }
