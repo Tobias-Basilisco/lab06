@@ -3,6 +3,7 @@ package it.unibo.generics.graph.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,6 +57,7 @@ public class GraphImpl<N> implements Graph<N>{
             return null;
         }
         final Set<N> set = new HashSet<>(map.keySet());
+
         return set;
     }
 
@@ -69,7 +71,9 @@ public class GraphImpl<N> implements Graph<N>{
         if (node == null || !map.containsKey(node)){
             return null;
         }
-        return null;
+        Set<N> linkedNodes = new HashSet<>(map.get(node));
+        
+        return linkedNodes;
     }
 
     /**
