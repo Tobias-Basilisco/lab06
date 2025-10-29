@@ -52,12 +52,10 @@ public class GraphImpl<N> implements Graph<N>{
      */
     @Override
     public Set<N> nodeSet(){
-        final Set<N> set = new HashSet<>();
         if (map.isEmpty()) {
-            return set;
+            return null;
         }
-        set.addAll(map.keySet());
-
+        final Set<N> set = new HashSet<>(map.keySet());
         return set;
     }
 
@@ -68,6 +66,9 @@ public class GraphImpl<N> implements Graph<N>{
      * @return
      */
     public Set<N> linkedNodes(N node){
+        if (node == null || !map.containsKey(node)){
+            return null;
+        }
         return null;
     }
 
