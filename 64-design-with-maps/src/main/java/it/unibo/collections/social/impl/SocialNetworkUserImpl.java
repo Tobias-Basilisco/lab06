@@ -105,9 +105,9 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
         Collection<U> groupColl = groupedFollowedFriends.get(groupName);
         if (groupColl == null){
-            groupColl = new HashSet<U>();
+            return new HashSet<U>();
         }
-        return groupColl;
+        return new HashSet<>(groupColl);
     }
 
     @Override
@@ -116,7 +116,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
         for (final Set<U> group : groupedFollowedFriends.values()){
             userList.addAll(group);
         }
-        return null;
+        return userList;
     }
 
     private boolean isUserAlreadyFollowed(U user){
