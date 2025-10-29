@@ -1,13 +1,20 @@
 package it.unibo.generics.graph.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import it.unibo.generics.graph.api.Graph;
 
 public class GraphImpl<N> implements Graph<N>{
 
+    private final Map<N, List<N>> map;
+
     public GraphImpl(){
+        map = new HashMap<>();
     }
     
     /**
@@ -17,6 +24,10 @@ public class GraphImpl<N> implements Graph<N>{
      */
     @Override
     public void addNode(N node){
+        if (map.containsKey(node)){
+            return;
+        }
+        map.put(node, new ArrayList<>());
     }
 
     /**
