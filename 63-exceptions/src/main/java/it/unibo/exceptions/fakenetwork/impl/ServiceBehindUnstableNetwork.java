@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.random.RandomGenerator;
+import java.lang.IllegalArgumentException;
 
 import static it.unibo.exceptions.arithmetic.ArithmeticService.KEYWORDS;
 import static it.unibo.exceptions.arithmetic.ArithmeticUtil.nullIfNumberOrException;
@@ -29,6 +30,10 @@ public final class ServiceBehindUnstableNetwork implements NetworkComponent {
         /*
          * The probability should be in [0, 1[!
          */
+        if (failProbability < 0 || failProbability >= 1){
+            final String msg = "failProbability must be in range [0, 1[";
+            throw new IllegalArgumentException(msg);
+        }
         this.failProbability = failProbability;
         randomGenerator = new Random(randomSeed);
     }
