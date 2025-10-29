@@ -38,6 +38,7 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      *
      * think of what type of keys and values would best suit the requirements
      */
+    final private Map<String, Set<U>> groupedFollowedFriends = new HashMap<>();
 
     /*
      * [CONSTRUCTORS]
@@ -57,19 +58,22 @@ public final class SocialNetworkUserImpl<U extends User> extends UserImpl implem
      *            the user firstname
      * @param surname
      *            the user lastname
-     * @param userAge
-     *            user's age
      * @param user
      *            alias of the user, i.e. the way a user is identified on an
      *            application
+     * @param userAge
+     *            user's age
      */
     public SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
-        super(null, null, null, 0);
+        super(name, surname, user, userAge);
     }
 
     /*
      * 2) Define a further constructor where the age defaults to -1
      */
+    public SocialNetworkUserImpl(final String name, final String surname, final String user) {
+        super(name, surname, user);
+    }
 
     /*
      * [METHODS]
