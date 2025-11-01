@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
@@ -132,10 +133,28 @@ public class GraphImpl<N> implements Graph<N>{
 
     private Map<N, BfsFields<N>> createBfsGraph(final N source){
         final Map<N, BfsFields<N>> bfsGraph = initEmptyBfsGraph();
-        final Queue<N> q; 
+        final Queue<N> q = new LinkedList<>();
+        N node = null;
 
         bfsGraph.get(source).setColor(Colors.GREY);
-        return null;
+        bfsGraph.get(source).setDistance(0);
+
+        q.add(source);
+
+        while(!q.isEmpty()){
+            node = q.remove();
+            for ( final N adj : GraphImpl.this.map.get(node)){
+                if (bfsGraph.get(adj).getColor() == Colors.WHITE){
+                    bfsGraph.get(adj).setColor(Colors.GREY);
+                    bfsGraph.get(adj).setParent(node);
+                    bfsGraph.get(adj).setDistance(bfsGraph.get(node).getDistance() + 1);
+                    q.add(adj);
+                }
+            }
+            bfsGraph.get(node).setColor(Colors.BLACK);
+        }
+
+        return bfsGraph;
     }
 
     private Map<N, BfsFields<N>> initEmptyBfsGraph(){
