@@ -88,7 +88,16 @@ public class GraphImpl<N> implements Graph<N>{
      */
     @Override
     public List<N> getPath(N source, N target){
-        return null;
+        final Map<N, BfsFields<N>> bfsGraph = createBfsGraph(source);
+        final List<N> path = new LinkedList<>();
+        N node = target;
+
+        while (node != null) {
+            path.addFirst(node);
+            node = bfsGraph.get(node).parent;
+        }
+
+        return path;
     }
 
     static class BfsFields<N>{
