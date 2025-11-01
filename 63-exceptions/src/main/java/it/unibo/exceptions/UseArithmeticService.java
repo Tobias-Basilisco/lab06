@@ -50,10 +50,13 @@ public final class UseArithmeticService {
          * This method should re-try to send message to the provided server, catching all IOExceptions,
          * until it succeeds.
          */
-        try {
-            server.sendData(message);
-        } catch (IOException e) {
-            System.err.println(e);
+        while (true) {
+            try {
+                server.sendData(message);
+                return;
+            } catch (IOException e) {
+                System.err.println(e);
+            }
         }
     }
 
@@ -62,7 +65,14 @@ public final class UseArithmeticService {
          * This method should re-try to retrieve information from the provided server, catching all IOExceptions,
          * until it succeeds.
          */
-        return null;
+        while (true) {
+            try {
+                var response = server.receiveResponse();
+                return response;
+            } catch (IOException e) {
+                System.err.println(e);
+            }
+        }
     }
 
     private static void assertEqualsAsDouble(final String expected, final String actual) {
