@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 import it.unibo.generics.graph.api.Graph;
@@ -67,6 +68,7 @@ public class GraphImpl<N> implements Graph<N>{
      * @param node
      * @return
      */
+    @Override
     public Set<N> linkedNodes(N node){
         if (node == null || !map.containsKey(node)){
             return null;
@@ -83,7 +85,64 @@ public class GraphImpl<N> implements Graph<N>{
      * @param target
      * @return
      */
+    @Override
     public List<N> getPath(N source, N target){
         return null;
+    }
+
+    static class BfsFields<N>{
+        private Colors color;
+        private int distance;
+        private N parent;
+
+        public BfsFields(){
+            this.color = Colors.WHITE;
+            this.distance = Integer.MAX_VALUE;
+            this.parent = null;
+        }
+
+        public Colors getColor() {
+            return color;
+        }
+
+        public int getDistance() {
+            return distance;
+        }
+
+        public N getParent() {
+            return parent;
+        }
+
+        void setColor(final Colors color){
+            this.color = color;
+        }
+
+        public void setDistance(int distance) {
+            this.distance = distance;
+        }
+
+        public void setParent(N parent) {
+            this.parent = parent;
+        }
+    }
+
+    static enum Colors{
+        WHITE, GREY, BLACK
+    }
+
+    private Map<N, BfsFields<N>> createBfsGraph(final N source){
+        final Map<N, BfsFields<N>> bfsGraph = initEmptyBfsGraph();
+        final Queue<N> q; 
+
+        bfsGraph.get(source).setColor(Colors.GREY);
+        return null;
+    }
+
+    private Map<N, BfsFields<N>> initEmptyBfsGraph(){
+        final Map<N, BfsFields<N>> bfsGraph = new HashMap<>();
+        for( final N node : map.keySet()){
+            bfsGraph.put(node, new BfsFields<>());
+        }
+        return bfsGraph;
     }
 }
